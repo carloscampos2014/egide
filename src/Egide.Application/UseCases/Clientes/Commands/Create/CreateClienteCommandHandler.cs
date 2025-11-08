@@ -1,13 +1,8 @@
 ﻿using Egide.Domain.Entities;
 using Egide.Domain.Interfaces;
-using FluentValidation;
 using MediatR;
 
 namespace Egide.Application.UseCases.Clientes.Commands.Create;
-/// <summary>
-/// Validador para o CreateClienteCommand.
-/// Garante que os dados de entrada cumprem as regras de negócio básicas.
-/// </summary>
 /// <summary>
 /// O 'Handler' (Manipulador) para o CreateClienteCommand.
 /// Esta classe implementa o IRequestHandler e contém a lógica de negócio real.
