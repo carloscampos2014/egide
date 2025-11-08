@@ -14,8 +14,8 @@ public class CreateClienteCommandValidator : AbstractValidator<CreateClienteComm
         RuleFor(x => x.Nome)
             .NotEmpty()
             .WithMessage("O nome é obrigatório.")
-            .MinimumLength(3)
-            .WithMessage("O nome deve ter no mínimo 3 caracteres.");
+            .Length(3, 200)
+            .WithMessage("O nome deve ter no mínimo 3 e no máximo 200 caracteres.");
 
         RuleFor(x => x.Personalidade)
             .Must(p => Enum.IsDefined(typeof(Personalidade), p))
@@ -23,13 +23,13 @@ public class CreateClienteCommandValidator : AbstractValidator<CreateClienteComm
 
         RuleFor(x => x.Documento)
             .NotEmpty().WithMessage("O documento é obrigatório.")
-            .Must(doc => Cnpj.Validar(doc)) // 3. Use a nova sintaxe
+            .Must(doc => Cnpj.Validar(doc)) 
             .WithMessage("O documento informado não é um CNPJ válido.")
             .When(x => x.Personalidade == Personalidade.Juridico); 
 
         RuleFor(x => x.Documento)
             .NotEmpty().WithMessage("O documento é obrigatório.")
-            .Must(doc => Cpf.Validar(doc)) // 5. Use a nova sintaxe
+            .Must(doc => Cpf.Validar(doc)) 
             .WithMessage("O documento informado não é um CPF válido.")
             .When(x => x.Personalidade == Personalidade.Fisico);
     }

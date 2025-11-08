@@ -1,0 +1,75 @@
+﻿using Dapper;
+using Egide.Domain.Entities;
+using Egide.Domain.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
+
+namespace Egide.Infrastructure.Persistence.Repositories;
+public class ClienteRepository : BaseRepository, IClienteRepository
+{
+    public ClienteRepository(IConfiguration configuration) : base(configuration)
+    {
+    }
+
+    public async Task AddAsync(Cliente cliente)
+    {
+        using var connection = GetConnection();
+        string sql = @"INSERT INTO Clientes(Id, Nome, Personalidade, Documento, Ativo, DataCriacao)
+                       VALUES(@Id, @Nome, @Personalidade, @Documento, @Ativo, @DataCriacao)";
+
+        await connection.ExecuteAsync(sql, new
+        {
+            cliente.Id,
+            cliente.Nome,
+            Personalidade = (int)cliente.Personalidade,
+            cliente.Documento,
+            cliente.Ativo,
+            cliente.DataCriacao, 
+        });
+    }
+
+    public async Task DeleteAsync(Guid id)
+    {
+        using var connection = GetConnection();
+        string sql = @"DELETE FROM Clientes WHERE Id = @Id";
+
+        await connection.ExecuteAsync(sql, new { Id = id });
+    }
+
+    public async Task<IEnumerable<Cliente>> GetAllAsync()
+    {
+        using var connection = GetConnection();
+        string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes";
+
+        return await connection.QueryAsync<Cliente>(sql);
+    }
+
+    public async Task<Cliente> GetByIdAsync(Guid id)
+    {
+        using var connection = GetConnection();
+        string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes WHERE Id = @Id";
+
+        return await connection.QueryFirstOrDefaultAsync<Cliente>(sql, new { Id = id });
+    }
+
+    public async Task UpdateAsync(Cliente cliente)
+    {
+        using var connection = GetConnection();
+        string sql = @"UPDATE Clientes SET 
+                          Nome = @Nome, 
+                          Personalidade = @Personalidade,
+                          Documento = @Documento,
+                          Ativo = @Ativo
+                       WHERE Id = @Id";
+
+
+        await connection.ExecuteAsync(sql, new
+        {
+            cliente.Nome,
+            Personalidade = (int)cliente.Personalidade,
+            cliente.Documento,
+            cliente.Ativo,
+            cliente.Id,
+        });
+    }
+}

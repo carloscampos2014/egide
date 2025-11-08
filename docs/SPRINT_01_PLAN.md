@@ -3,7 +3,7 @@
 
 ## 1. Objetivo da Sprint
 
-[cite_start]O objetivo desta Sprint é construir a fundação da solução "Égide" seguindo a Clean Architecture [cite: 436-497] e implementar os Casos de Uso (CRUDs) para as entidades centrais: `Cliente` e `Software`.
+O objetivo desta Sprint é construir a fundação da solução "Égide" seguindo a Clean Architecture [cite: 436-497] e implementar os Casos de Uso (CRUDs) para as entidades centrais: `Cliente` e `Software`.
 
 Ao final desta Sprint, a API de Administração deve permitir a criação, consulta, atualização e exclusão de Clientes e Softwares.
 
@@ -23,27 +23,27 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
     * `tests/Egide.Domain.UnitTests`
 
 ### Tarefa 2: Camada de Domínio (`Egide.Domain`)
-* [cite_start][x] Definir a entidade `Cliente` (ex: `Id`, `Nome`, `Documento`, `Ativo`).
-* [cite_start][x] Definir a entidade `Software` (ex: `Id`, `Nome`, `Descricao`, `VersaoAtual`).
-* [cite_start][x] Definir as interfaces de repositório (Abstrações do DIP [cite: 70-86]):
-    * [cite_start]`IClienteRepository` (com métodos `AddAsync`, `GetByIdAsync`, `UpdateAsync`, `DeleteAsync`).
-    * [cite_start]`ISoftwareRepository` (com métodos similares).
+* [x] Definir a entidade `Cliente` (ex: `Id`, `Nome`, `Documento`, `Ativo`).
+* [x] Definir a entidade `Software` (ex: `Id`, `Nome`, `Descricao`, `VersaoAtual`).
+* [x] Definir as interfaces de repositório (Abstrações do DIP):
+    * `IClienteRepository` (com métodos `AddAsync`, `GetByIdAsync`, `UpdateAsync`, `DeleteAsync`).
+    * `ISoftwareRepository` (com métodos similares).
 
 ### Tarefa 3: Camada de Aplicação (`Egide.Application`)
 * [x] Instalar pacotes NuGet (ex: MediatR, FluentValidation).
 * [x] Implementar os Casos de Uso de `Cliente` (padrão CQRS leve):
-    * [cite_start][x] `Commands/CreateClienteCommand` (DTO de entrada).
-    * [cite_start][x] `Commands/CreateClienteCommandHandler` (Lógica de orquestração).
-    * [cite_start][x] `Commands/CreateClienteCommandValidator` (Validação de CPF/CNPJ).
+    * [x] `Commands/CreateClienteCommand` (DTO de entrada).
+    * [x] `Commands/CreateClienteCommandHandler` (Lógica de orquestração).
+    * [x] `Commands/CreateClienteCommandValidator` (Validação de CPF/CNPJ).
     * [ ] `Queries/GetClienteByIdQuery`
     * [ ] `Queries/GetClienteByIdQueryHandler`
     * [ ] (Repetir para `Update`, `Delete` e `GetAll`).
 * [ ] Implementar os Casos de Uso de `Software` (similar ao Cliente).
-* [cite_start][x] Definir a interface `IUnitOfWork` (para gerenciar transações).
+* [x] Definir a interface `IUnitOfWork` (para gerenciar transações).
 
 ### Tarefa 4: Camada de Infraestrutura (`Egide.Infrastructure`)
 * [x] Instalar pacotes NuGet (Dapper, FluentMigrator, Npgsql).
-* [ ] Implementar as classes concretas dos repositórios:
+* [x] Implementar as classes concretas dos repositórios:
     * `Persistence/Repositories/ClienteRepository` (implementando `IClienteRepository` com Dapper).
     * `Persistence/Repositories/SoftwareRepository` (implementando `ISoftwareRepository` com Dapper).
 * [ ] Implementar a `Persistence/UnitOfWork` (gerenciando a `NpgsqlConnection` e `NpgsqlTransaction`).
@@ -52,8 +52,8 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
     * `Migrations/Migration_..._CreateSoftwareTable`
 
 ### Tarefa 5: Camada de Apresentação (`Egide.Presentation.Api`)
-* [cite_start][ ] Configurar o `Program.cs` para Injeção de Dependência (DI)[cite: 74], registrando os repositórios e handlers (MediatR).
-* [cite_start][ ] Configurar a conexão com o PostgreSQL (`appsettings.json`)[cite: 236, 266].
+* [ ] Configurar o `Program.cs` para Injeção de Dependência (DI), registrando os repositórios e handlers (MediatR).
+* [ ] Configurar a conexão com o PostgreSQL (`appsettings.json`).
 * [ ] Criar o `Controllers/ClientesController` (API REST):
     * `POST /api/v1/clientes` (chama o `CreateClienteCommand`).
     * `GET /api/v1/clientes/{id}` (chama o `GetClienteByIdQuery`).

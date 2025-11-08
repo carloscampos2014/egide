@@ -9,9 +9,9 @@ namespace Egide.Application.UseCases.Clientes.Commands.Create;
 /// </summary>
 public class CreateClienteCommand : IRequest<Guid>
 {
-    public string Nome { get; set; }
+    public string Nome { get; set; } = string.Empty;
     
-    public Personalidade Personalidade { get; set; } 
- 
-    public string Documento { get; set; }
+    public Personalidade Personalidade { get; set; }
+
+    public string Documento { get; set; } = string.Empty;
 }

@@ -1,4 +1,5 @@
-﻿using Egide.Domain.Entities;
+﻿using Egide.Application.Abstractions;
+using Egide.Domain.Entities;
 using Egide.Domain.Interfaces;
 using MediatR;
 
@@ -11,29 +12,26 @@ namespace Egide.Application.UseCases.Clientes.Commands.Create;
 public class CreateClienteCommandHandler : IRequestHandler<CreateClienteCommand, Guid>
 {
     private readonly IClienteRepository _clienteRepository;
-    // Futuramente, também injetaremos o IUnitOfWork aqui.
+    private readonly IUnitOfWork _unitOfWork;
 
-    // Injetamos a "Abstração" (IClienteRepository) e não a "Implementação" (Dapper)
-    public CreateClienteCommandHandler(IClienteRepository clienteRepository)
+    public CreateClienteCommandHandler(IClienteRepository clienteRepository, IUnitOfWork unitOfWork)
     {
         _clienteRepository = clienteRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Guid> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
     {
-        // 1. Criamos a entidade de Domínio usando os dados do comando
         var cliente = new Cliente(
-            request.Nome,
-            request.Personalidade,
-            request.Documento
+            nome: request.Nome,
+            personalidade: request.Personalidade,
+            documento: request.Documento
         );
 
-        // 2. Usamos o repositório para persistir a entidade
         await _clienteRepository.AddAsync(cliente);
 
-        // 3. (Futuro: aqui chamaríamos _unitOfWork.SaveChangesAsync())
+        _ = await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        // 4. Retornamos o Id da nova entidade
         return cliente.Id;
     }
 }
