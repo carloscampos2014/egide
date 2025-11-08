@@ -7,7 +7,7 @@ public class Migration_20251108_001_CreateTables : Migration
     public override void Down()
     {
         Delete.Table("Clientes");
-        Delete.Table("Software");
+        Delete.Table("Softwares");
     }
 
     public override void Up()
