@@ -1,14 +1,19 @@
-﻿namespace Egide.Application.Abstractions;
+﻿using System.Data;
+
+namespace Egide.Application.Abstractions;
 /// <summary>
 /// Define o contrato para o padrão Unit of Work.
-/// Usado para agrupar operações de repositório numa única transação de base de dados.
 /// </summary>
 public interface IUnitOfWork
 {
     /// <summary>
-    /// Salva (commita) todas as alterações feitas no contexto da transação atual.
+    /// A transação de base de dados ativa.
+    /// Os repositórios devem usar esta transação para garantir a atomicidade.
     /// </summary>
-    /// <param name="cancellationToken">Token de cancelamento.</param>
-    /// <returns>O número de linhas afetadas (opcional, dependendo da implementação).</returns>
+    IDbTransaction Transaction { get; }
+
+    /// <summary>
+    /// Salva (commita) todas as alterações.
+    /// </summary>
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

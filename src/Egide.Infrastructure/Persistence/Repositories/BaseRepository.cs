@@ -1,15 +1,17 @@
-﻿using Microsoft.Extensions.Configuration;
-using Npgsql;
+﻿using Egide.Application.Abstractions;
+using System.Data;
 
 namespace Egide.Infrastructure.Persistence.Repositories;
 public abstract class BaseRepository
 {
-    protected readonly string _connectionString;
+    private readonly IUnitOfWork _unitOfWork;
 
-    protected BaseRepository(IConfiguration configuration)
+    protected BaseRepository(IUnitOfWork unitOfWork)
     {
-        _connectionString = configuration.GetConnectionString("EgideDb");
+        _unitOfWork = unitOfWork;
     }
 
-    protected NpgsqlConnection GetConnection() => new NpgsqlConnection(_connectionString);
+    protected IDbTransaction GetTransaction() => _unitOfWork.Transaction;
+
+    protected IDbConnection GetConnection() => _unitOfWork.Transaction.Connection!;
 }

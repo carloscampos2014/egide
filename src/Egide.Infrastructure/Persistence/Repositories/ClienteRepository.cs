@@ -1,13 +1,12 @@
 ﻿using Dapper;
+using Egide.Application.Abstractions;
 using Egide.Domain.Entities;
 using Egide.Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
 
 namespace Egide.Infrastructure.Persistence.Repositories;
 public class ClienteRepository : BaseRepository, IClienteRepository
 {
-    public ClienteRepository(IConfiguration configuration) : base(configuration)
+    public ClienteRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
     }
 
@@ -25,7 +24,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
             cliente.Documento,
             cliente.Ativo,
             cliente.DataCriacao, 
-        });
+        }, transaction: GetTransaction());
     }
 
     public async Task DeleteAsync(Guid id)
@@ -33,7 +32,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
         using var connection = GetConnection();
         string sql = @"DELETE FROM Clientes WHERE Id = @Id";
 
-        await connection.ExecuteAsync(sql, new { Id = id });
+        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction());
     }
 
     public async Task<IEnumerable<Cliente>> GetAllAsync()
@@ -70,6 +69,6 @@ public class ClienteRepository : BaseRepository, IClienteRepository
             cliente.Documento,
             cliente.Ativo,
             cliente.Id,
-        });
+        }, transaction: GetTransaction());
     }
 }

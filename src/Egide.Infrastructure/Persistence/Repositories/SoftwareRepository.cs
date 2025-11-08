@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Egide.Application.Abstractions;
 using Egide.Domain.Entities;
 using Egide.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -6,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 namespace Egide.Infrastructure.Persistence.Repositories;
 public class SoftwareRepository : BaseRepository, ISoftwareRepository
 {
-    public SoftwareRepository(IConfiguration configuration) : base(configuration)
+    public SoftwareRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
     }
 
@@ -24,7 +25,7 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
             software.VersaoAtual,
             software.Ativo,
             software.DataCriacao,
-        });
+        }, transaction: GetTransaction());
     }
 
     public async Task DeleteAsync(Guid id)
@@ -32,7 +33,7 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
         using var connection = GetConnection();
         string sql = @"DELETE FROM Softwares WHERE Id = @Id";
 
-        await connection.ExecuteAsync(sql, new { Id = id });
+        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction());
     }
 
     public async Task<IEnumerable<Software>> GetAllAsync()
@@ -69,6 +70,6 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
             software.VersaoAtual,
             software.Ativo,
             software.Id,
-        });
+        }, transaction: GetTransaction());
     }
 }
