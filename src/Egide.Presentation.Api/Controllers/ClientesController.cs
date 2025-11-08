@@ -63,7 +63,6 @@ public class ClientesController : BaseController
     }
 
     [HttpGet]
-    [HttpGet]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(IEnumerable<Cliente>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll()

@@ -61,4 +61,4 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
 * [x] Criar o `Controllers/SoftwaresController` (similar ao Clientes).
 
 ### Tarefa 6: Testes (`Egide.Domain.UnitTests`)
-* [ ] Escrever testes unitários para as regras de negócio das entidades `Cliente` e `Software` (se houver, ex: validação de documento).
+* [x] Escrever testes unitários para as regras de negócio das entidades `Cliente` e `Software` (se houver, ex: validação de documento).
