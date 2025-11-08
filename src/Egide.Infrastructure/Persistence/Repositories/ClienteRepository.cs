@@ -12,7 +12,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task AddAsync(Cliente cliente)
     {
-        using var connection = GetConnection;
+        var connection = GetConnection;
         string sql = @"INSERT INTO Clientes(Id, Nome, Personalidade, Documento, Ativo, DataCriacao)
                        VALUES(@Id, @Nome, @Personalidade, @Documento, @Ativo, @DataCriacao)";
 
@@ -29,7 +29,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task DeleteAsync(Guid id)
     {
-        using var connection = GetConnection;
+        var connection = GetConnection;
         string sql = @"DELETE FROM Clientes WHERE Id = @Id";
 
         await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction);
@@ -37,7 +37,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task<IEnumerable<Cliente>> GetAllAsync()
     {
-        using var connection = GetConnection;
+        var connection = GetConnection;
         string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes";
 
         return await connection.QueryAsync<Cliente>(sql, transaction: GetTransaction);
@@ -45,7 +45,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task<Cliente> GetByIdAsync(Guid id)
     {
-        using var connection = GetConnection;
+        var connection = GetConnection;
         string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes WHERE Id = @Id";
 
         return await connection.QueryFirstOrDefaultAsync<Cliente>(sql, new { Id = id }, transaction: GetTransaction);
@@ -53,7 +53,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task UpdateAsync(Cliente cliente)
     {
-        using var connection = GetConnection;
+        var connection = GetConnection;
         string sql = @"UPDATE Clientes SET 
                           Nome = @Nome, 
                           Personalidade = @Personalidade,

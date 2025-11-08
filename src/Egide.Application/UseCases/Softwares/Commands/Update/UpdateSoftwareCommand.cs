@@ -1,7 +1,7 @@
 ﻿using MediatR;
 
 namespace Egide.Application.UseCases.Softwares.Commands.Update;
-public class UpdateSoftwareCommad : IRequest<Unit>
+public class UpdateSoftwareCommand : IRequest<Unit>
 {
 
     public Guid Id { get; set; }

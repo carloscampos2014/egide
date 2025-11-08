@@ -20,7 +20,7 @@ public class Migration_20251108_001_CreateTables : Migration
             .WithColumn("Ativo").AsBoolean().NotNullable()
             .WithColumn("DataCriacao").AsDateTime().NotNullable();
 
-        Create.Table("Clientes")
+        Create.Table("Softwares")
             .WithColumn("Id").AsGuid().PrimaryKey()
             .WithColumn("Titulo").AsString(200).NotNullable().Unique()
             .WithColumn("Descricao").AsString(500).Nullable()

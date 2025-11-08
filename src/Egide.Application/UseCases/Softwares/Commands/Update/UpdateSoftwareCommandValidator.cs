@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 
 namespace Egide.Application.UseCases.Softwares.Commands.Update;
-public class UpdateSoftwareCommadValidator : AbstractValidator<UpdateSoftwareCommad>
+public class UpdateSoftwareCommandValidator : AbstractValidator<UpdateSoftwareCommand>
 {
-    public UpdateSoftwareCommadValidator()
+    public UpdateSoftwareCommandValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

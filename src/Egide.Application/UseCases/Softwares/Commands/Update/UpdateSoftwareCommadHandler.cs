@@ -3,7 +3,7 @@ using Egide.Domain.Interfaces;
 using MediatR;
 
 namespace Egide.Application.UseCases.Softwares.Commands.Update;
-public class UpdateSoftwareCommadHandler :IRequestHandler<UpdateSoftwareCommad, Unit>
+public class UpdateSoftwareCommadHandler :IRequestHandler<UpdateSoftwareCommand, Unit>
 {
     private readonly ISoftwareRepository _softwareRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -14,7 +14,7 @@ public class UpdateSoftwareCommadHandler :IRequestHandler<UpdateSoftwareCommad, 
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<Unit> Handle(UpdateSoftwareCommad request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateSoftwareCommand request, CancellationToken cancellationToken)
     {
         var software = await _softwareRepository.GetByIdAsync(request.Id);
         if (software == null)
