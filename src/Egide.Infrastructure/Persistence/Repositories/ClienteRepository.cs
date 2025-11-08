@@ -13,7 +13,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
     public async Task AddAsync(Cliente cliente)
     {
         var connection = GetConnection;
-        string sql = @"INSERT INTO Clientes(Id, Nome, Personalidade, Documento, Ativo, DataCriacao)
+        string sql = @"INSERT INTO clientes(id, nome, personalidade, documento, ativo, datacriacao)
                        VALUES(@Id, @Nome, @Personalidade, @Documento, @Ativo, @DataCriacao)";
 
         await connection.ExecuteAsync(sql, new
@@ -30,7 +30,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
     public async Task DeleteAsync(Guid id)
     {
         var connection = GetConnection;
-        string sql = @"DELETE FROM Clientes WHERE Id = @Id";
+        string sql = @"DELETE FROM clientes WHERE id = @Id";
 
         await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction);
     }
@@ -38,7 +38,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
     public async Task<IEnumerable<Cliente>> GetAllAsync()
     {
         var connection = GetConnection;
-        string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes";
+        string sql = "SELECT id, nome, personalidade, documento, ativo, datacriacao FROM clientes";
 
         return await connection.QueryAsync<Cliente>(sql, transaction: GetTransaction);
     }
@@ -46,7 +46,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
     public async Task<Cliente> GetByIdAsync(Guid id)
     {
         var connection = GetConnection;
-        string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes WHERE Id = @Id";
+        string sql = "SELECT id, nome, personalidade, documento, ativo, datacriacao FROM clientes WHERE id = @Id";
 
         return await connection.QueryFirstOrDefaultAsync<Cliente>(sql, new { Id = id }, transaction: GetTransaction);
     }
@@ -54,12 +54,12 @@ public class ClienteRepository : BaseRepository, IClienteRepository
     public async Task UpdateAsync(Cliente cliente)
     {
         var connection = GetConnection;
-        string sql = @"UPDATE Clientes SET 
-                          Nome = @Nome, 
-                          Personalidade = @Personalidade,
-                          Documento = @Documento,
-                          Ativo = @Ativo
-                       WHERE Id = @Id";
+        string sql = @"UPDATE clientes SET 
+                          nome = @Nome, 
+                          personalidade = @Personalidade,
+                          documento = @Documento,
+                          ativo = @Ativo
+                       WHERE id = @Id";
 
 
         await connection.ExecuteAsync(sql, new

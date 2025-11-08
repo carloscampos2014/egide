@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Data.Common;
 
 namespace Egide.Application.Abstractions;
 /// <summary>
@@ -10,7 +10,7 @@ public interface IUnitOfWork
     /// A transação de base de dados ativa.
     /// Os repositórios devem usar esta transação para garantir a atomicidade.
     /// </summary>
-    IDbTransaction Transaction { get; }
+    DbTransaction Transaction { get; }
 
     /// <summary>
     /// Salva (commita) todas as alterações.

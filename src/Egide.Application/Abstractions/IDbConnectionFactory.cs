@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System.Data.Common;
 
 namespace Egide.Application.Abstractions;
 /// <summary>
@@ -11,5 +11,5 @@ public interface IDbConnectionFactory
     /// Cria e abre uma nova conexão com o banco de dados.
     /// </summary>
     /// <returns>Uma instância de IDbConnection.</returns>
-    IDbConnection CreateConnection();
+    DbConnection CreateConnection();
 }

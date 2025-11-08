@@ -52,13 +52,13 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
     * `Migrations/Migration_..._CreateSoftwareTable`
 
 ### Tarefa 5: Camada de Apresentação (`Egide.Presentation.Api`)
-* [ ] Configurar o `Program.cs` para Injeção de Dependência (DI), registrando os repositórios e handlers (MediatR).
-* [ ] Configurar a conexão com o PostgreSQL (`appsettings.json`).
-* [ ] Criar o `Controllers/ClientesController` (API REST):
+* [x] Configurar o `Program.cs` para Injeção de Dependência (DI), registrando os repositórios e handlers (MediatR).
+* [x] Configurar a conexão com o PostgreSQL (`appsettings.json`).
+* [x] Criar o `Controllers/ClientesController` (API REST):
     * `POST /api/v1/clientes` (chama o `CreateClienteCommand`).
     * `GET /api/v1/clientes/{id}` (chama o `GetClienteByIdQuery`).
     * (Repetir para `PUT`, `DELETE`, `GET All`).
-* [ ] Criar o `Controllers/SoftwaresController` (similar ao Clientes).
+* [x] Criar o `Controllers/SoftwaresController` (similar ao Clientes).
 
 ### Tarefa 6: Testes (`Egide.Domain.UnitTests`)
 * [ ] Escrever testes unitários para as regras de negócio das entidades `Cliente` e `Software` (se houver, ex: validação de documento).

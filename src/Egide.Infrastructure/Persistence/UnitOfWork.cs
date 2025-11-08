@@ -1,13 +1,11 @@
 ﻿using Egide.Application.Abstractions;
-using Microsoft.Extensions.Configuration;
-using Npgsql;
-using System.Data;
+using System.Data.Common;
 
 namespace Egide.Infrastructure.Persistence;
 public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
-    private readonly IDbConnection _connection;
-    private IDbTransaction? _transaction;
+    private readonly DbConnection _connection;
+    private DbTransaction? _transaction;
 
     public UnitOfWork(IDbConnectionFactory connectionFactory)
     {
@@ -15,7 +13,7 @@ public sealed class UnitOfWork : IUnitOfWork, IDisposable
         _transaction = _connection.BeginTransaction();
     }
 
-    public IDbTransaction Transaction => _transaction!;
+    public DbTransaction Transaction => _transaction!;
 
     public void Dispose()
     {

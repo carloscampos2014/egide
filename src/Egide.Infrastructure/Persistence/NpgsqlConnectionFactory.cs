@@ -1,7 +1,7 @@
 ﻿using Egide.Application.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using System.Data;
+using System.Data.Common;
 
 namespace Egide.Infrastructure.Persistence;
 /// <summary>
@@ -16,7 +16,7 @@ public class NpgsqlConnectionFactory : IDbConnectionFactory
         _connectionString = configuration.GetConnectionString("EgideDb");
     }
 
-    public IDbConnection CreateConnection()
+    public DbConnection CreateConnection()
     {
         var connection = new NpgsqlConnection(_connectionString);
         connection.Open();

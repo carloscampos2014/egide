@@ -11,6 +11,11 @@ public class Software
         DataCriacao = DateTime.UtcNow;
     }
 
+    private Software()
+    {
+        
+    }
+
     public Guid Id { get; private set; }
 
     public string Titulo { get; private set; }

@@ -13,6 +13,11 @@ public class Cliente
         DataCriacao = DateTime.UtcNow;
     }
 
+    private Cliente()
+    {
+        
+    }
+
     public Guid Id { get; private set; }
 
     public string Nome { get; private set; }

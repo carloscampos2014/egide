@@ -1,5 +1,5 @@
 ﻿using Egide.Application.Abstractions;
-using System.Data;
+using System.Data.Common;
 
 namespace Egide.Infrastructure.Persistence.Repositories;
 public abstract class BaseRepository
@@ -11,7 +11,7 @@ public abstract class BaseRepository
         _unitOfWork = unitOfWork;
     }
 
-    protected IDbTransaction GetTransaction => _unitOfWork.Transaction;
+    protected DbTransaction GetTransaction => _unitOfWork.Transaction;
 
-    protected IDbConnection GetConnection => _unitOfWork.Transaction.Connection!;
+    protected DbConnection GetConnection => _unitOfWork.Transaction.Connection!;
 }
