@@ -16,9 +16,4 @@
     <ProjectReference Include="..\Egide.Domain\Egide.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Clientes\Queries\" />
-    <Folder Include="UseCases\Softwares\Queries\" />
-  </ItemGroup>
-
 </Project>

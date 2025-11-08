@@ -2,7 +2,6 @@
 using Egide.Application.Abstractions;
 using Egide.Domain.Entities;
 using Egide.Domain.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace Egide.Infrastructure.Persistence.Repositories;
 public class SoftwareRepository : BaseRepository, ISoftwareRepository
@@ -13,7 +12,7 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
 
     public async Task AddAsync(Software software)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"INSERT INTO Softwares(Id, Titulo, Descricao, VersaoAtual, Ativo, DataCriacao)
                        VALUES(@Id, @Titulo, @Descricao, @VersaoAtual, @Ativo, @DataCriacao)";
 
@@ -25,20 +24,20 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
             software.VersaoAtual,
             software.Ativo,
             software.DataCriacao,
-        }, transaction: GetTransaction());
+        }, transaction: GetTransaction);
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"DELETE FROM Softwares WHERE Id = @Id";
 
-        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction());
+        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction);
     }
 
     public async Task<IEnumerable<Software>> GetAllAsync()
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = "SELECT Id, Titulo, Descricao, VersaoAtual, Ativo, DataCriacao FROM Softwares";
 
         return await connection.QueryAsync<Software>(sql);
@@ -46,15 +45,15 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
 
     public async Task<Software> GetByIdAsync(Guid id)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = "SELECT Id, Titulo, Descricao, VersaoAtual, Ativo, DataCriacao FROM Softwares WHERE Id = @Id";
 
-        return await connection.QueryFirstOrDefaultAsync<Software>(sql, new { Id = id });
+        return await connection.QueryFirstOrDefaultAsync<Software>(sql, new { Id = id }, transaction: GetTransaction);
     }
 
     public async Task UpdateAsync(Software software)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"UPDATE Softwares SET 
                           Titulo = @Titulo, 
                           Descricao = @Descricao,
@@ -70,6 +69,6 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
             software.VersaoAtual,
             software.Ativo,
             software.Id,
-        }, transaction: GetTransaction());
+        }, transaction: GetTransaction);
     }
 }

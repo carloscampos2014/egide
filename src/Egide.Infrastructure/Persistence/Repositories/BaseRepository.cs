@@ -11,7 +11,7 @@ public abstract class BaseRepository
         _unitOfWork = unitOfWork;
     }
 
-    protected IDbTransaction GetTransaction() => _unitOfWork.Transaction;
+    protected IDbTransaction GetTransaction => _unitOfWork.Transaction;
 
-    protected IDbConnection GetConnection() => _unitOfWork.Transaction.Connection!;
+    protected IDbConnection GetConnection => _unitOfWork.Transaction.Connection!;
 }

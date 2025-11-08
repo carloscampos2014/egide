@@ -1,10 +1,14 @@
 ﻿using FluentValidation;
 
-namespace Egide.Application.UseCases.Softwares.Commands.Create;
-public class CreateSoftwareCommandValidator : AbstractValidator<CreateSoftwareCommand>
+namespace Egide.Application.UseCases.Softwares.Commands.Update;
+public class UpdateSoftwareCommadValidator : AbstractValidator<UpdateSoftwareCommad>
 {
-    public CreateSoftwareCommandValidator()
+    public UpdateSoftwareCommadValidator()
     {
+        RuleFor(x => x.Id)
+            .NotEmpty()
+            .WithMessage("O Id do software é obrigatório para atualização.");
+
         RuleFor(x => x.Titulo)
             .NotEmpty()
             .WithMessage("O titulo do software é obrigatório.")

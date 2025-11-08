@@ -4,11 +4,6 @@ using Egide.Domain.Interfaces;
 using MediatR;
 
 namespace Egide.Application.UseCases.Clientes.Commands.Create;
-/// <summary>
-/// O 'Handler' (Manipulador) para o CreateClienteCommand.
-/// Esta classe implementa o IRequestHandler e contém a lógica de negócio real.
-/// Ela adere ao Princípio da Responsabilidade Única (SRP) [cite: 31-37].
-/// </summary>
 public class CreateClienteCommandHandler : IRequestHandler<CreateClienteCommand, Guid>
 {
     private readonly IClienteRepository _clienteRepository;

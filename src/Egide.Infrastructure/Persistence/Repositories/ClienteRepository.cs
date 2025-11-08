@@ -12,7 +12,7 @@ public class ClienteRepository : BaseRepository, IClienteRepository
 
     public async Task AddAsync(Cliente cliente)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"INSERT INTO Clientes(Id, Nome, Personalidade, Documento, Ativo, DataCriacao)
                        VALUES(@Id, @Nome, @Personalidade, @Documento, @Ativo, @DataCriacao)";
 
@@ -24,36 +24,36 @@ public class ClienteRepository : BaseRepository, IClienteRepository
             cliente.Documento,
             cliente.Ativo,
             cliente.DataCriacao, 
-        }, transaction: GetTransaction());
+        }, transaction: GetTransaction);
     }
 
     public async Task DeleteAsync(Guid id)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"DELETE FROM Clientes WHERE Id = @Id";
 
-        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction());
+        await connection.ExecuteAsync(sql, new { Id = id }, transaction: GetTransaction);
     }
 
     public async Task<IEnumerable<Cliente>> GetAllAsync()
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes";
 
-        return await connection.QueryAsync<Cliente>(sql);
+        return await connection.QueryAsync<Cliente>(sql, transaction: GetTransaction);
     }
 
     public async Task<Cliente> GetByIdAsync(Guid id)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = "SELECT Id, Nome, Personalidade, Documento, Ativo, DataCriacao FROM Clientes WHERE Id = @Id";
 
-        return await connection.QueryFirstOrDefaultAsync<Cliente>(sql, new { Id = id });
+        return await connection.QueryFirstOrDefaultAsync<Cliente>(sql, new { Id = id }, transaction: GetTransaction);
     }
 
     public async Task UpdateAsync(Cliente cliente)
     {
-        using var connection = GetConnection();
+        using var connection = GetConnection;
         string sql = @"UPDATE Clientes SET 
                           Nome = @Nome, 
                           Personalidade = @Personalidade,
@@ -69,6 +69,6 @@ public class ClienteRepository : BaseRepository, IClienteRepository
             cliente.Documento,
             cliente.Ativo,
             cliente.Id,
-        }, transaction: GetTransaction());
+        }, transaction: GetTransaction);
     }
 }
