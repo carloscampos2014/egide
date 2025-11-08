@@ -35,10 +35,10 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
     * [x] `Commands/CreateClienteCommand` (DTO de entrada).
     * [x] `Commands/CreateClienteCommandHandler` (Lógica de orquestração).
     * [x] `Commands/CreateClienteCommandValidator` (Validação de CPF/CNPJ).
-    * [ ] `Queries/GetClienteByIdQuery`
-    * [ ] `Queries/GetClienteByIdQueryHandler`
-    * [ ] (Repetir para `Update`, `Delete` e `GetAll`).
-* [ ] Implementar os Casos de Uso de `Software` (similar ao Cliente).
+    * [x] `Queries/GetClienteByIdQuery`
+    * [x] `Queries/GetClienteByIdQueryHandler`
+    * [x] (Repetir para `Update`, `Delete` e `GetAll`).
+* [x] Implementar os Casos de Uso de `Software` (similar ao Cliente).
 * [x] Definir a interface `IUnitOfWork` (para gerenciar transações).
 
 ### Tarefa 4: Camada de Infraestrutura (`Egide.Infrastructure`)
@@ -46,8 +46,8 @@ Ao final desta Sprint, a API de Administração deve permitir a criação, consulta,
 * [x] Implementar as classes concretas dos repositórios:
     * `Persistence/Repositories/ClienteRepository` (implementando `IClienteRepository` com Dapper).
     * `Persistence/Repositories/SoftwareRepository` (implementando `ISoftwareRepository` com Dapper).
-* [ ] Implementar a `Persistence/UnitOfWork` (gerenciando a `NpgsqlConnection` e `NpgsqlTransaction`).
-* [ ] Criar as *migrations* iniciais com FluentMigrator:
+* [x] Implementar a `Persistence/UnitOfWork` (gerenciando a `NpgsqlConnection` e `NpgsqlTransaction`).
+* [x] Criar as *migrations* iniciais com FluentMigrator:
     * `Migrations/Migration_..._CreateClienteTable`
     * `Migrations/Migration_..._CreateSoftwareTable`
 

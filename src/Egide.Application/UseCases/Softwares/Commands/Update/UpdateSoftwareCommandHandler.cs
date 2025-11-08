@@ -3,12 +3,12 @@ using Egide.Domain.Interfaces;
 using MediatR;
 
 namespace Egide.Application.UseCases.Softwares.Commands.Update;
-public class UpdateSoftwareCommadHandler :IRequestHandler<UpdateSoftwareCommand, Unit>
+public class UpdateSoftwareCommandHandler :IRequestHandler<UpdateSoftwareCommand, Unit>
 {
     private readonly ISoftwareRepository _softwareRepository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateSoftwareCommadHandler(ISoftwareRepository softwareRepository, IUnitOfWork unitOfWork)
+    public UpdateSoftwareCommandHandler(ISoftwareRepository softwareRepository, IUnitOfWork unitOfWork)
     {
         _softwareRepository = softwareRepository;
         _unitOfWork = unitOfWork;

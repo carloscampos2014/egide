@@ -40,7 +40,7 @@ public class SoftwareRepository : BaseRepository, ISoftwareRepository
         var connection = GetConnection;
         string sql = "SELECT Id, Titulo, Descricao, VersaoAtual, Ativo, DataCriacao FROM Softwares";
 
-        return await connection.QueryAsync<Software>(sql);
+        return await connection.QueryAsync<Software>(sql, transaction: GetTransaction);
     }
 
     public async Task<Software> GetByIdAsync(Guid id)
