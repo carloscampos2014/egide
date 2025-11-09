@@ -13,24 +13,24 @@ public class UpdateClienteCommandValidator : AbstractValidator<UpdateClienteComm
 
         RuleFor(x => x.Nome)
             .NotEmpty()
-            .WithMessage("O nome é obrigatório.")
+            .WithMessage("O nome do cliente é obrigatório.")
             .Length(3, 200)
-            .WithMessage("O nome deve ter no mínimo 3 e no máximo 200 caracteres.");
+            .WithMessage("O nome do cliente deve ter no mínimo 3 e no máximo 200 caracteres.");
 
         RuleFor(x => x.Personalidade)
             .Must(p => Enum.IsDefined(typeof(Personalidade), p))
-            .WithMessage("A personalidade informada não é válida (0=Jurídico, 1=Físico).");
+            .WithMessage("A personalidade do cliente informada não é válida (0=Jurídico, 1=Físico).");
 
         RuleFor(x => x.Documento)
-            .NotEmpty().WithMessage("O documento é obrigatório.")
+            .NotEmpty().WithMessage("O documento do cliente é obrigatório.")
             .Must(doc => Cnpj.Validar(doc))
-            .WithMessage("O documento informado não é um CNPJ válido.")
+            .WithMessage("O documento do cliente informado não é um CNPJ válido.")
             .When(x => x.Personalidade == Personalidade.Juridico);
 
         RuleFor(x => x.Documento)
-            .NotEmpty().WithMessage("O documento é obrigatório.")
+            .NotEmpty().WithMessage("O documento do cliente é obrigatório.")
             .Must(doc => Cpf.Validar(doc))
-            .WithMessage("O documento informado não é um CPF válido.")
+            .WithMessage("O documento do cliente informado não é um CPF válido.")
             .When(x => x.Personalidade == Personalidade.Fisico);
     }
 }
