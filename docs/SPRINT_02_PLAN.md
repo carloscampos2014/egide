@@ -26,19 +26,19 @@ O objetivo desta Sprint é implementar o núcleo do sistema de licenciamento. Vamo
 * [x] Implementar a `Persistence/Repositories/LicencaRepository` (implementando `ILicencaRepository` com Dapper).
 
 ### Tarefa 3: Camada de Aplicação (`Egide.Application`)
-* [ ] Implementar os Casos de Uso (Commands) para vincular licenças (US03):
+* [x] Implementar os Casos de Uso (Commands) para vincular licenças (US03):
     * `Commands/VincularLicencaVitaliciaCommand` (+Handler e Validator).
     * `Commands/VincularLicencaPorTempoCommand` (+Handler e Validator).
-* [ ] Implementar o Caso de Uso (Query) para a validação (US05):
+* [x] Implementar o Caso de Uso (Query) para a validação (US05):
     * `Queries/ValidarLicencaQuery` (recebe ClienteId/SoftwareId).
     * `Queries/ValidarLicencaQueryHandler` (busca a licença, chama o método `licenca.Validar()` do domínio e retorna um DTO de resposta, ex: `ValidacaoLicencaResponse`).
 
 ### Tarefa 4: Camada de Apresentação (`Egide.Presentation.Api`)
-* [ ] Registar o novo `ILicencaRepository` no `Program.cs`.
-* [ ] Criar um novo `LicencasController`:
+* [x] Registar o novo `ILicencaRepository` no `Program.cs`.
+* [x] Criar um novo `LicencasController`:
     * `POST /api/v1/licencas/vincular-vitalicia` (para US03)
     * `POST /api/v1/licencas/vincular-tempo` (para US03)
-* [ ] Criar um novo `ValidacaoController` (para a API externa, US05):
+* [x] Criar um novo `ValidacaoController` (para a API externa, US05):
     * `POST /api/v1/validacao/check` (ou similar, conforme `API_INTEGRATION.md`)
 
 ### Tarefa 5: Testes (`Egide.Domain.UnitTests`)

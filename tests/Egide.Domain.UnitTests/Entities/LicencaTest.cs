@@ -47,13 +47,36 @@ public class LicencaTest
         var novoMaxInstalacoes = 6;
 
         // Act
-        licenca.AtualizarDados(novoTipo,novoDataExpiracao, novoMaxInstalacoes, novoMaxUsuarios);
+        licenca.AtualizarDados(novoTipo, novoDataExpiracao, novoMaxInstalacoes, novoMaxUsuarios);
 
         // Assert
         licenca.Tipo.Should().Be(novoTipo);
         licenca.DataExpiracao.Should().Be(novoDataExpiracao);
         licenca.MaximoInstalacoes.Should().Be(novoMaxInstalacoes);
         licenca.MaximoUsuarios.Should().Be(novoMaxUsuarios);
+    }
+
+    [Fact]
+    public void TextoValidacao_Deve_DeveRetornarTextoValidacao()
+    {
+        // Arrange
+        var licenca = new Licenca(
+            tipo: Enums.TipoLicenca.PorUsuario,
+            clienteId: Guid.NewGuid(),
+            softwareId: Guid.NewGuid(),
+            dataExpiracao: DateTime.UtcNow,
+            maximoUsuarios: 1,
+            maximoInstalacoes: 5);
+
+        var context = new ValidationContext() { ContagemUsuariosAtuais = 4, ContagemInstalacoesAtuais = 4 };
+        string expected = $"Você atingiu o numero máximo de usuários ativos -> {licenca.MaximoUsuarios:D4}";
+
+
+        // Act
+        string actual = licenca.TextoValidacao(context);
+
+        // Assert
+        actual.Should().Be(expected);
     }
 
 

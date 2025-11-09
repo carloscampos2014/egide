@@ -69,6 +69,31 @@ public class Licenca
         };
     }
 
+    public string TextoValidacao(ValidationContext contexto)
+    {
+        if (!this.Ativa)
+        {
+            return "Essa licença não esta mais ativa.";
+        }
+
+        if (Tipo == TipoLicenca.PorInstalacao && (contexto == null || !contexto.ContagemInstalacoesAtuais.HasValue))
+        {
+            return "Erro na chamada da validação faltou passar o contexto de Validação";
+        }
+
+        if (Tipo == TipoLicenca.PorUsuario && (contexto == null || !contexto.ContagemUsuariosAtuais.HasValue))
+        {
+            return "Erro na chamada da validação faltou passar o contexto de Validação";
+        }
+
+        return Tipo switch
+        {
+            TipoLicenca.PorTempo => $"Sua licença venceu no dia -> {DataExpiracao.Date:dd/MM/yyyy}",
+            TipoLicenca.PorUsuario => $"Você atingiu o numero máximo de usuários ativos -> {MaximoUsuarios:D4}" ,
+            TipoLicenca.PorInstalacao => $"Você atingiu o numero máximo de instalações -> {MaximoInstalacoes:D4}",
+        };
+    }
+
     public void ModificarStatus(bool status)
     {
         Ativa = status;

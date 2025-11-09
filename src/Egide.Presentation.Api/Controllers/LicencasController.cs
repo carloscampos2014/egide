@@ -58,8 +58,8 @@ public class LicencasController : BaseController
     public async Task<IActionResult> GetById(Guid id)
     {
         var query = new GetLicencaByIdQuery(id);
-        var cliente = await _mediator.Send(query);
-        return cliente is not null ? Ok(cliente) : NotFound();
+        var licenca = await _mediator.Send(query);
+        return licenca is not null ? Ok(licenca) : NotFound();
     }
 
     [HttpGet("{filtro:int}")]
@@ -68,7 +68,7 @@ public class LicencasController : BaseController
     public async Task<IActionResult> GetAll(FiltroLicenca filtro)
     {
         var query = new GetAllLicencaQuery(filtro);
-        var clientes = await _mediator.Send(query);
-        return Ok(clientes);
+        var licencas = await _mediator.Send(query);
+        return Ok(licencas);
     }
 }
