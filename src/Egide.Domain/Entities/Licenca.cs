@@ -16,15 +16,15 @@ public abstract class Licenca
         DataCriacao = DateTime.UtcNow;
     }
 
-    public Guid Id { get; private set; }
+    public Guid Id { get; set; }
 
     public Guid ClienteId { get; private set; }
 
     public Guid SoftwareId { get; private set; }
 
-    public bool Ativa { get; private set; }
+    public bool Ativa { get; set; }
 
-    public DateTime DataCriacao { get; private set; }
+    public DateTime DataCriacao { get; set; }
 
     public bool Validar(ValidationContext contexto)
     {
