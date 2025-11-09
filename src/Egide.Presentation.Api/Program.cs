@@ -19,6 +19,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // Repositórios (Scoped)
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ISoftwareRepository, SoftwareRepository>();
+builder.Services.AddScoped<ILicencaRepository, LicencaRepository>();
 
 // Aplicação (MediatR)
 builder.Services.AddMediatR(cfg =>

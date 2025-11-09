@@ -3,7 +3,7 @@
 
 ## 1. Objetivo da Sprint
 
-O objetivo desta Sprint é implementar o núcleo do sistema de licenciamento. Vamos modelar os tipos de licença iniciais (Vitalícia e Por Tempo) e permitir que um Administrador as vincule a um Cliente e um Software. [cite_start]Além disso, vamos construir a primeira versão da API de Validação (RF006)  para que os softwares possam verificar o status dessas licenças simples.
+O objetivo desta Sprint é implementar o núcleo do sistema de licenciamento. Vamos modelar os tipos de licença iniciais (Vitalícia e Por Tempo) e permitir que um Administrador as vincule a um Cliente e um Software. Além disso, vamos construir a primeira versão da API de Validação (RF006)  para que os softwares possam verificar o status dessas licenças simples.
 
 ## 2. Histórias de Usuário (Backlog da Sprint)
 
@@ -13,17 +13,17 @@ O objetivo desta Sprint é implementar o núcleo do sistema de licenciamento. Vamo
 ## 3. Tarefas Técnicas Detalhadas
 
 ### Tarefa 1: Camada de Domínio (`Egide.Domain`)
-* [ ] Modelar a entidade `Licenca` como uma classe base (abstrata), contendo `Id`, `ClienteId`, `SoftwareId`, `Ativa` e um método abstrato `Validar()`.
-* [ ] Criar as classes de licença concretas que herdam de `Licenca`:
+* [x] Modelar a entidade `Licenca` como uma classe base (abstrata), contendo `Id`, `ClienteId`, `SoftwareId`, `Ativa` e um método abstrato `Validar()`.
+* [x] Criar as classes de licença concretas que herdam de `Licenca`:
     * `LicencaVitalicia`
     * `LicencaPorTempo` (com a propriedade `DataExpiracao`)
-* [ ] Definir a interface `ILicencaRepository` (Abstração do DIP).
+* [x] Definir a interface `ILicencaRepository` (Abstração do DIP).
 
 ### Tarefa 2: Camada de Infraestrutura (`Egide.Infrastructure`)
-* [ ] Criar uma nova *migration* (`Migration_..._CreateLicencaTable`) para a tabela `licencas`.
+* [x] Criar uma nova *migration* (`Migration_..._CreateLicencaTable`) para a tabela `licencas`.
     * A tabela deve incluir uma coluna "Tipo" (ex: int) para sabermos qual tipo de licença é (para o Dapper).
     * Deve incluir colunas que possam ser nulas (ex: `DataExpiracao`).
-* [ ] Implementar a `Persistence/Repositories/LicencaRepository` (implementando `ILicencaRepository` com Dapper).
+* [x] Implementar a `Persistence/Repositories/LicencaRepository` (implementando `ILicencaRepository` com Dapper).
 
 ### Tarefa 3: Camada de Aplicação (`Egide.Application`)
 * [ ] Implementar os Casos de Uso (Commands) para vincular licenças (US03):
@@ -39,7 +39,7 @@ O objetivo desta Sprint é implementar o núcleo do sistema de licenciamento. Vamo
     * `POST /api/v1/licencas/vincular-vitalicia` (para US03)
     * `POST /api/v1/licencas/vincular-tempo` (para US03)
 * [ ] Criar um novo `ValidacaoController` (para a API externa, US05):
-    * [cite_start]`POST /api/v1/validacao/check` (ou similar, conforme `API_INTEGRATION.md` [cite: 147-148, 203-204, 252-253, 563-564])
+    * `POST /api/v1/validacao/check` (ou similar, conforme `API_INTEGRATION.md`)
 
 ### Tarefa 5: Testes (`Egide.Domain.UnitTests`)
-* [ ] Escrever testes unitários para a lógica de validação das novas entidades `LicencaVitalicia` e `LicencaPorTempo`.
+* [x] Escrever testes unitários para a lógica de validação das novas entidades `LicencaVitalicia` e `LicencaPorTempo`.

@@ -5,11 +5,10 @@ using FluentAssertions;
 namespace Egide.Domain.UnitTests.Entities;
 public class ClienteTests
 {
-    [Fact] // Define isto como um método de teste xUnit
+    [Fact] 
     public void AtualizarDados_Deve_AlterarNomePersonalidadeEDocumento()
     {
-        // --- Arrange (Organizar) ---
-        // Criamos o estado inicial do nosso objeto
+        // Arrange
         var cliente = new Cliente(
             "Nome Antigo",
             Personalidade.Fisico,
@@ -20,12 +19,10 @@ public class ClienteTests
         var novaPersonalidade = Personalidade.Juridico;
         var novoDocumento = "12345678000199";
 
-        // --- Act (Agir) ---
-        // Executamos o método que queremos testar
+        // Act
         cliente.AtualizarDados(novoNome, novaPersonalidade, novoDocumento);
 
-        // --- Assert (Verificar) ---
-        // Usamos o FluentAssertions para verificar se o estado mudou como esperado
+        // Assert
         cliente.Nome.Should().Be(novoNome);
         cliente.Personalidade.Should().Be(novaPersonalidade);
         cliente.Documento.Should().Be(novoDocumento);

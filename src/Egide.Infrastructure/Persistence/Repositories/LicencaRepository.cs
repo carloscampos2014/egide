@@ -23,10 +23,10 @@ public class LicencaRepository : BaseRepository, ILicencaRepository
             licenca.Id,
             licenca.ClienteId,
             licenca.SoftwareId,
-            Tipo = (short)GetTipoLicenca(licenca),
-            (licenca as LicencaPorTempo)?.DataExpiracao,
-            (licenca as LicencaPorUsuario)?.MaximoUsuarios,
-            (licenca as LicencaPorInstalacao)?.MaximoInstalacoes,
+            Tipo = (short)licenca.Tipo,
+            licenca.DataExpiracao,
+            licenca.MaximoUsuarios,
+            licenca.MaximoInstalacoes,
             licenca.Ativa,
             licenca.DataCriacao,
         }, transaction: GetTransaction);
@@ -51,16 +51,15 @@ public class LicencaRepository : BaseRepository, ILicencaRepository
             licencas = licencas.Where(w => w.Ativa == ativa).ToList();
         }
 
-        return licencas.Select(Materialize).ToList();
+        return licencas;
     }
 
     public async Task<Licenca> GetByIdAsync(Guid id)
     {
         var connection = GetConnection;
         string sql = "SELECT id, clienteid, softwareid, tipo, dataexpiracao, maximousuarios, maximoinstalacoes, ativa, datacriacao FROM licencas WHERE id = @Id";
-        var licencas = await connection.QueryAsync<Licenca>(sql, new { Id = id }, transaction: GetTransaction);
 
-        return licencas.Select(Materialize).FirstOrDefault();
+        return await connection.QueryFirstOrDefaultAsync<Licenca>(sql, new { Id = id }, transaction: GetTransaction);
     }
 
     public async Task UpdateAsync(Licenca licenca)
@@ -78,43 +77,11 @@ public class LicencaRepository : BaseRepository, ILicencaRepository
         await connection.ExecuteAsync(sql, new
         {
             licenca.Ativa,
-            Tipo = (short)GetTipoLicenca(licenca),
-            (licenca as LicencaPorTempo)?.DataExpiracao,
-            (licenca as LicencaPorUsuario)?.MaximoUsuarios,
-            (licenca as LicencaPorInstalacao)?.MaximoInstalacoes,
+            Tipo = (short)licenca.Tipo,
+            licenca.DataExpiracao,
+            licenca.MaximoUsuarios,
+            licenca.MaximoInstalacoes,
             licenca.Id,
         }, transaction: GetTransaction);
     }
-
-    private static Licenca Materialize(dynamic row)
-    {
-        TipoLicenca tipo = (TipoLicenca)row.tipo;
-        Guid id = row.id;
-        Guid clienteId = row.clienteid;
-        Guid softwareId = row.softwareid;
-        bool ativa = row.ativo;
-        DateTime dataCriacao = row.datacriacao;
-
-        return tipo switch
-        {
-            TipoLicenca.Vitalicia => new LicencaVitalicia(clienteId, softwareId) { Id = id, Ativa = ativa, DataCriacao = dataCriacao },
-
-            TipoLicenca.PorTempo => new LicencaPorTempo(clienteId, softwareId, row.dataexpiracao) { Id = id, Ativa = ativa, DataCriacao = dataCriacao },
-
-            // Sprints Futuras
-            TipoLicenca.PorUsuario => new LicencaPorUsuario(clienteId, softwareId, row.maximousuarios) { Id = id, Ativa = ativa, DataCriacao = dataCriacao },
-            TipoLicenca.PorInstalacao => new LicencaPorInstalacao(clienteId, softwareId, row.maximoinstalacoes) { Id = id, Ativa = ativa, DataCriacao = dataCriacao },
-
-            _ => throw new InvalidOperationException($"Tipo de licença desconhecido: {tipo}")
-        };
-    }
-
-    private static TipoLicenca GetTipoLicenca(Licenca licenca) => licenca switch
-    {
-        LicencaVitalicia => TipoLicenca.Vitalicia,
-        LicencaPorTempo => TipoLicenca.PorTempo,
-        LicencaPorUsuario => TipoLicenca.PorUsuario,
-        LicencaPorInstalacao => TipoLicenca.PorInstalacao,
-        _ => throw new InvalidOperationException("Tipo de licença não mapeado para persistência.")
-    };
 }

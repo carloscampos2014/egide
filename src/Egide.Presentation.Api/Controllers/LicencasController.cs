@@ -1,17 +1,18 @@
-﻿using Egide.Application.UseCases.Clientes.Commands.Create;
-using Egide.Application.UseCases.Clientes.Commands.Delete;
-using Egide.Application.UseCases.Clientes.Commands.Update;
-using Egide.Application.UseCases.Clientes.Queries.GetAll;
-using Egide.Application.UseCases.Clientes.Queries.GetById;
+﻿using Egide.Application.UseCases.Licencas.Commands.Create;
+using Egide.Application.UseCases.Licencas.Commands.Delete;
+using Egide.Application.UseCases.Licencas.Commands.Update;
+using Egide.Application.UseCases.Licencas.Queries.GetAll;
+using Egide.Application.UseCases.Licencas.Queries.GetById;
 using Egide.Domain.Entities;
+using Egide.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 namespace Egide.Presentation.Api.Controllers;
-public class ClientesController : BaseController
+public class LicencasController : BaseController
 {
-    public ClientesController(IMediator mediator) : base(mediator)
+    public LicencasController(IMediator mediator) : base(mediator)
     {
     }
 
@@ -20,7 +21,7 @@ public class ClientesController : BaseController
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Create([FromBody] CreateClienteCommand command)
+    public async Task<IActionResult> Create([FromBody] CreateLicencaCommand command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetById), new { id }, command);
@@ -31,7 +32,7 @@ public class ClientesController : BaseController
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateClienteCommand command)
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateLicencaCommand command)
     {
         command.Id = id;
         await _mediator.Send(command);
@@ -45,28 +46,28 @@ public class ClientesController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var command = new DeleteClienteCommand(id);
+        var command = new DeleteLicencaCommand(id);
         await _mediator.Send(command);
         return NoContent();
     }
 
     [HttpGet("{id:guid}")]
     [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(Cliente), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Licenca), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var query = new GetClienteByIdQuery(id);
+        var query = new GetLicencaByIdQuery(id);
         var cliente = await _mediator.Send(query);
         return cliente is not null ? Ok(cliente) : NotFound();
     }
 
-    [HttpGet]
+    [HttpGet("{filtro:int}")]
     [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(IEnumerable<Cliente>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll()
+    [ProducesResponseType(typeof(IEnumerable<Licenca>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(FiltroLicenca filtro)
     {
-        var query = new GetAllClienteQuery();
+        var query = new GetAllLicencaQuery(filtro);
         var clientes = await _mediator.Send(query);
         return Ok(clientes);
     }
