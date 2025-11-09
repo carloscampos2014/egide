@@ -37,6 +37,6 @@ public class CreateLicencaCommandValidator : AbstractValidator<CreateLicencaComm
             .WithMessage("O Número Máximo de Instalações é obrigatório.")
             .GreaterThan(0)
             .WithMessage("O Número Máximo de Instalações deve ser maior que 0.")
-            .When(x => x.Tipo == TipoLicenca.PorUsuario);
+            .When(x => x.Tipo == TipoLicenca.PorInstalacao);
     }
 }
