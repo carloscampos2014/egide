@@ -6,21 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		docs\API_INTEGRATION.md = docs\API_INTEGRATION.md
-		docs\ARCHITECTURE.md = docs\ARCHITECTURE.md
-		docs\DEVELOPER_GUIDE.md = docs\DEVELOPER_GUIDE.md
-		docs\PROJECT_VISION.md = docs\PROJECT_VISION.md
-		README.md = README.md
-		docs\RISK_PLAN.md = docs\RISK_PLAN.md
-		docs\ROADMAP.md = docs\ROADMAP.md
-		docs\SPRINT_01_PLAN.md = docs\SPRINT_01_PLAN.md
-		docs\SPRINT_02_PLAN.md = docs\SPRINT_02_PLAN.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A7D0E899-7C3B-4E98-AC26-058614D898F2}"
 EndProject
